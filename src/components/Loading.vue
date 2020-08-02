@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <input type="radio" name="color" id="red" checked display="none" />
+    <ul class="drops red" :style="pStyles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Loading",
+  props: {
+    msg: String,
+    description: String,
+    show: {
+      type: String,
+      default: "",
+    },
+  },
+  computed: {
+    pStyles() {
+      return this.show == "show" ? "" : "display:none";
+    },
+  },
+};
+</script>
+
+<style scoped>
+.drops {
+  list-style: none;
+  position: relative;
+  height: 10px;
+  width: 140px;
+  margin: 0 auto; /* center the animation */
+  margin-top: 40px; /* padd the top from the text */
+}
+.drops li {
+  position: absolute;
+  top: 0px;
+  height: 10px;
+  width: 10px;
+  background-color: black;
+  border-radius: 5px;
+  margin-left: -3000px; /* the dots like to jump out of place without this */
+  animation-name: loading;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+.drops li:nth-child(1) {
+  left: 0px;
+  animation-delay: 250ms;
+}
+.drops li:nth-child(2) {
+  left: 40px;
+  animation-delay: 500ms;
+}
+.drops li:nth-child(3) {
+  left: 80px;
+  animation-delay: 750ms;
+}
+.drops li:nth-child(4) {
+  left: 120px;
+  animation-delay: 1s;
+}
+.drops li:nth-child(5) {
+  left: 160px;
+  animation-delay: 1.25s;
+}
+@keyframes loading {
+  0% {
+    margin-left: -3000px;
+  }
+  30%,
+  70% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 3000px;
+  }
+}
+
+#red:checked ~ .drops li {
+  background-color: #ff4444;
+  box-shadow: 0 0 5px #ff2222, 0 0 10px #ff2222, 0 0 15px #ff2222,
+    0 0 20px #ff2222, 0 0 30px #ff2222, 0 0 40px #ff2222;
+}
+
+input {
+  display: none;
+}
+input[type="radio"]:checked + label {
+  background-color: white;
+}
+</style>
